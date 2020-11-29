@@ -75,5 +75,12 @@ namespace Eduvation_SMS
             class_label.Text = dt3.Rows[0][0].ToString();
             conn.Close();
         }
+
+        private void Logout_Btn_Click(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            this.Hide();
+        }
     }
 }

@@ -9,21 +9,7 @@ using System.Data.SqlClient;
 
 namespace Eduvation_SMS
 {
-    public class login 
-    {
-        private string uname, password;
-
-        public string UNAME 
-        {
-            get { return uname; }
-            set { uname = value; }
-        }
-        public string PSWD 
-        {
-            get { return password; }
-            set { password = value; }
-        }
-    }
+   
     interface IMethods
     {
         void Disable_errorlabel();

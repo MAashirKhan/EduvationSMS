@@ -38,11 +38,9 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                        conn.Open();
-                        SqlCommand cmd = new SqlCommand("Insert into Fees values( " + Num_textBox.Text + ",'" + StdID_DD.SelectedValue.ToString() + "','" + name_textBox.Text + "','" + Period_picker.Text + "','" + amount_textBox.Text + "')", conn);
-                        cmd.ExecuteNonQuery();
-                        MainClass.MSGBox("Fee Inserted Successfully", "Success", "Success");
-                        conn.Close();
+
+                        FeeDB feeDB = new FeeDB();
+                        feeDB.Add(Num_textBox, StdID_DD, name_textBox, Period_picker, amount_textBox);
                         MainClass.reset_disable(panel4);
                         ShowData();
                     
@@ -79,21 +77,9 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    string query = @"Update Fees set [Fee Num] = @num,
-                                                     [Std ID] = @sid, 
-                                                     [Std Name] = @sname ,
-                                                     [Fee Period] = @period,
-                                                     [Fee Amount] = @fee where [Fee Num] = @num";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@num", Num_textBox.Text);
-                    cmd.Parameters.AddWithValue("@sid",StdID_DD.SelectedValue.ToString());
-                    cmd.Parameters.AddWithValue("@sname", name_textBox.Text);
-                    cmd.Parameters.AddWithValue("@period", Period_picker.Text);
-                    cmd.Parameters.AddWithValue("@fee", amount_textBox.Text);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(name_textBox.Text + " Updated Successfully", "Success", "Success");
-                    conn.Close();
+
+                    FeeDB feeDB = new FeeDB();
+                    feeDB.Edit(Num_textBox, StdID_DD, name_textBox, Period_picker, amount_textBox);
                     MainClass.reset_disable(panel4);
                     ShowData();
                 }
@@ -115,12 +101,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    string query = "Delete from Fees where [Fee Num]=" + Num_textBox.Text + ";";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(name_textBox.Text + " Deleted Successfully", "Success", "Success");
-                    conn.Close();
+                    FeeDB feeDB = new FeeDB();
+                    feeDB.Delete(Num_textBox, StdID_DD, name_textBox, Period_picker, amount_textBox);
                     MainClass.Disable(panel4);
                     ShowData();
                 }
@@ -245,7 +227,7 @@ namespace Eduvation_SMS
             e.Graphics.DrawString("FEE RECIEPT", new Font("Tahoma", 25, FontStyle.Bold),Brushes.ForestGreen, new Point(250));
             e.Graphics.DrawString(FeeDGV.SelectedRows[0].Cells[0].Value.ToString(), new Font("Tahoma", 25, FontStyle.Bold), Brushes.Black, new Point(320, 50));
             e.Graphics.DrawString("Reciept Number: ", new Font("Tahoma", 25, FontStyle.Bold), Brushes.Black, new Point(20, 50));
-            e.Graphics.DrawString(FeeDGV.SelectedRows[0].Cells[1].Value.ToString(), new Font("Tahoma", 25, FontStyle.Bold), Brushes.Black, new Point(300, 80));
+            e.Graphics.DrawString(FeeDGV.SelectedRows[0].Cells[1].Value.ToString(), new Font("Tahoma", 25, FontStyle.Bold), Brushes.Black, new Point(300, 90));
             e.Graphics.DrawString("Student ID: ", new Font("Tahoma", 25, FontStyle.Bold), Brushes.Black, new Point(20, 80));
             e.Graphics.DrawString(FeeDGV.SelectedRows[0].Cells[2].Value.ToString(), new Font("Tahoma", 25, FontStyle.Bold), Brushes.Black, new Point(300, 120));
             e.Graphics.DrawString("Student Name: ", new Font("Tahoma", 25, FontStyle.Bold), Brushes.Black, new Point(20, 120));

@@ -33,7 +33,6 @@
             this.close_Btn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.showpswd_checkBox = new System.Windows.Forms.CheckBox();
             this.login_Btn = new System.Windows.Forms.Button();
             this.pswd_label = new System.Windows.Forms.Label();
             this.pswdTxt = new System.Windows.Forms.TextBox();
@@ -87,7 +86,6 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Black;
-            this.panel2.Controls.Add(this.showpswd_checkBox);
             this.panel2.Controls.Add(this.login_Btn);
             this.panel2.Controls.Add(this.pswd_label);
             this.panel2.Controls.Add(this.pswdTxt);
@@ -102,18 +100,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(465, 704);
             this.panel2.TabIndex = 1;
-            // 
-            // showpswd_checkBox
-            // 
-            this.showpswd_checkBox.AutoSize = true;
-            this.showpswd_checkBox.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.showpswd_checkBox.ForeColor = System.Drawing.Color.MediumSeaGreen;
-            this.showpswd_checkBox.Location = new System.Drawing.Point(47, 495);
-            this.showpswd_checkBox.Name = "showpswd_checkBox";
-            this.showpswd_checkBox.Size = new System.Drawing.Size(152, 25);
-            this.showpswd_checkBox.TabIndex = 6;
-            this.showpswd_checkBox.Text = "Show Password";
-            this.showpswd_checkBox.UseVisualStyleBackColor = true;
             // 
             // login_Btn
             // 
@@ -150,6 +136,7 @@
             this.pswdTxt.PasswordChar = '*';
             this.pswdTxt.Size = new System.Drawing.Size(380, 34);
             this.pswdTxt.TabIndex = 2;
+            this.pswdTxt.TextChanged += new System.EventHandler(this.pswdTxt_TextChanged);
             // 
             // username_label
             // 
@@ -170,6 +157,7 @@
             this.usernameTxt.Name = "usernameTxt";
             this.usernameTxt.Size = new System.Drawing.Size(380, 32);
             this.usernameTxt.TabIndex = 1;
+            this.usernameTxt.TextChanged += new System.EventHandler(this.usernameTxt_TextChanged);
             // 
             // login_label
             // 
@@ -254,6 +242,5 @@
         private System.Windows.Forms.TextBox pswdTxt;
         private System.Windows.Forms.Button login_Btn;
         private System.Windows.Forms.Button close_Btn;
-        private System.Windows.Forms.CheckBox showpswd_checkBox;
     }
 }

@@ -38,11 +38,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand("Insert into Student values( " + SID_textBox.Text + ",'" + name_textBox.Text + "','" + GenderDD.SelectedItem.ToString() + "','" + DOB_Picker.Text + "','" + Phone_textBox.Text + "','" + ClassDD.SelectedValue.ToString() +"')", conn);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(name_textBox.Text + " Inserted Successfully", "Success", "Success");
-                    conn.Close();
+                    StudentDB studentDB = new StudentDB();
+                    studentDB.Add(SID_textBox, name_textBox, GenderDD, DOB_Picker, Phone_textBox, ClassDD);
                     MainClass.reset_disable(panel4);
                     ShowData();
                 }
@@ -79,22 +76,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    string query = @"Update Student set [Student ID] = @id, 
-                                                        [Student Name] = @sname ,
-                                                        [Gender] = @sgender, [Date Of Birth] = @dob,
-                                                        [Phone] = @phone,
-                                                        [Class Assigned] = @class where [Student ID] = @id";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@id", SID_textBox.Text);
-                    cmd.Parameters.AddWithValue("@sname", name_textBox.Text);
-                    cmd.Parameters.AddWithValue("@sgender", GenderDD.SelectedItem.ToString());
-                    cmd.Parameters.AddWithValue("@dob", DOB_Picker.Text);
-                    cmd.Parameters.AddWithValue("@phone", Phone_textBox.Text);
-                    cmd.Parameters.AddWithValue("@class", ClassDD.SelectedValue.ToString());
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(name_textBox.Text + " Updated Successfully", "Success", "Success");
-                    conn.Close();
+                    StudentDB studentDB = new StudentDB();
+                    studentDB.Edit(SID_textBox, name_textBox, GenderDD, DOB_Picker, Phone_textBox, ClassDD);
                     MainClass.reset_disable(panel4);
                     ShowData();
                 }
@@ -116,12 +99,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    string query = "Delete from Student where [Student ID]=" + SID_textBox.Text + ";";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(name_textBox.Text + " Deleted Successfully", "Success", "Success");
-                    conn.Close();
+                    StudentDB studentDB = new StudentDB();
+                    studentDB.Delete(SID_textBox, name_textBox, GenderDD, DOB_Picker, Phone_textBox, ClassDD);
                     MainClass.Disable(panel4);
                     ShowData();
                 }

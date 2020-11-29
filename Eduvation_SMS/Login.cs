@@ -26,7 +26,8 @@ namespace Eduvation_SMS
         SqlConnection conn = new SqlConnection(MainClass.con_string());
         private void login_Btn_Click(object sender, EventArgs e)
         {
-            login lg = new login();
+            //Encapsulation Set the textbox in private variable of login 
+            user_login lg = new user_login();
             lg.UNAME = usernameTxt.Text;
             lg.PSWD = pswdTxt.Text;
             if (usernameTxt.Text == "") { username_errorlabel.Visible = true; } else { username_errorlabel.Visible = false; }
@@ -57,6 +58,16 @@ namespace Eduvation_SMS
                 }
                 conn.Close();
             }
+        }
+
+        private void usernameTxt_TextChanged(object sender, EventArgs e)
+        {
+            if (usernameTxt.Text == "") { username_errorlabel.Visible = true; } else { username_errorlabel.Visible = false; }
+        }
+
+        private void pswdTxt_TextChanged(object sender, EventArgs e)
+        {
+            if (pswdTxt.Text == "") { pswd_errorlabel.Visible = true; } else { pswd_errorlabel.Visible = false; }
         }
     }
 }

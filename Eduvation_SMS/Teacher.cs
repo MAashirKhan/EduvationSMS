@@ -49,11 +49,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand("Insert into Teacher values( " + TID_textBox.Text + ",'" + name_textBox.Text + "','" + GenderDD.SelectedItem.ToString() + "','" +Phone_textBox.Text+ "','"+ClassDD.SelectedValue.ToString()+ "','"+Address_textBox.Text+ "')", conn);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(name_textBox.Text + " Inserted Successfully", "Success", "Success");
-                    conn.Close();
+                    TeacherDB teacherDB = new TeacherDB();
+                    teacherDB.Add(TID_textBox,name_textBox,GenderDD,Phone_textBox,ClassDD,Address_textBox);
                     MainClass.reset_disable(panel4);
                     ShowData();
                 }
@@ -84,23 +81,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    string query = @"Update Teacher set [Teacher ID] = @id, 
-                                                        [Teacher Name] = @tname ,
-                                                        [Teacher Gender] = @tgender,
-                                                        [Teacher Phone] = @phone,
-                                                        [Teacher Class Assigned] = @class,
-                                                        [Teacher Address] = @address where [Teacher ID] = @id";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@id", TID_textBox.Text);
-                    cmd.Parameters.AddWithValue("@tname", name_textBox.Text);
-                    cmd.Parameters.AddWithValue("@tgender", GenderDD.SelectedItem.ToString());
-                    cmd.Parameters.AddWithValue("@phone", Phone_textBox.Text);
-                    cmd.Parameters.AddWithValue("@class", ClassDD.SelectedValue.ToString());
-                    cmd.Parameters.AddWithValue("@address", Address_textBox.Text);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(name_textBox.Text + " Updated Successfully", "Success", "Success");
-                    conn.Close();
+                    TeacherDB teacherDB = new TeacherDB();
+                    teacherDB.Edit(TID_textBox, name_textBox, GenderDD, Phone_textBox, ClassDD, Address_textBox);
                     MainClass.reset_disable(panel4);
                     ShowData();
                 }
@@ -127,12 +109,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    string query = "Delete from Teacher where [Teacher ID]=" + TID_textBox.Text + ";";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(name_textBox.Text + " Deleted Successfully", "Success", "Success");
-                    conn.Close();
+                    TeacherDB teacherDB = new TeacherDB();
+                    teacherDB.Delete(TID_textBox, name_textBox, GenderDD, Phone_textBox, ClassDD, Address_textBox);
                     MainClass.Disable(panel4);
                     ShowData();
                 }
@@ -151,7 +129,6 @@ namespace Eduvation_SMS
         //Public Method to getclasses from classes and display in DD using interface and inheritance
         public void FillClass() 
         {
-           
             conn.Open();
             SqlCommand cmd = new SqlCommand("Select [Class Name] FROM Classes", conn);
             SqlDataReader reader;
@@ -225,7 +202,7 @@ namespace Eduvation_SMS
             GenderDD.SelectedItem = TeacherDGV.SelectedRows[0].Cells[2].Value.ToString(); 
             Phone_textBox.Text = TeacherDGV.SelectedRows[0].Cells[3].Value.ToString();
             ClassDD.SelectedValue = TeacherDGV.SelectedRows[0].Cells[4].Value.ToString();
-            Address_textBox.Text = TeacherDGV.SelectedRows[0].Cells[2].Value.ToString();
+            Address_textBox.Text = TeacherDGV.SelectedRows[0].Cells[5].Value.ToString();
         }
     }
 }

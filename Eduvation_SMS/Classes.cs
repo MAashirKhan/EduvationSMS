@@ -63,11 +63,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand("Insert into Classes values( '" + classesname_textBox.Text + "')", conn);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(classesname_textBox.Text + " Inserted Successfully", "Success", "Success");
-                    conn.Close();
+                    ClassDB classDB = new ClassDB();
+                    classDB.add(classesname_textBox);
                     MainClass.reset_disable(panel4);
                     ShowData();
                 }
@@ -98,14 +95,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    string query = "Update Classes set [Class Name] = @classname where [Class ID] = @classid";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@classid",classid);
-                    cmd.Parameters.AddWithValue("@classname", classesname_textBox.Text);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(classesname_textBox.Text + " Updated Successfully", "Success", "Success");
-                    conn.Close();
+                    ClassDB classDB = new ClassDB();
+                    classDB.edit(classesname_textBox);
                     MainClass.reset_disable(panel4);
                     ShowData();
 
@@ -144,13 +135,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    string query = "Delete from Classes where [Class Name]= @classname;";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@classname", classesname_textBox.Text);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(classesname_textBox.Text + " Deleted Successfully", "Success", "Success");
-                    conn.Close();
+                    ClassDB classDB = new ClassDB();
+                    classDB.delete(classesname_textBox);
                     MainClass.Disable(panel4);
                     ShowData();
                 }

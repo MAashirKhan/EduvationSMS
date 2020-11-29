@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data;
 using System.Data.SqlClient;
 
 namespace Eduvation_SMS
@@ -56,11 +55,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand("Insert into Users values( "+UserID_textBox.Text+",'" +username_textBox.Text+ "','"+userpswd_textBox.Text+"')", conn);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(username_textBox.Text + " Inserted Successfully","Success","Success");
-                    conn.Close();
+                    UsersDB usersDB = new UsersDB();
+                    usersDB.Add(UserID_textBox, username_textBox, userpswd_textBox);
                     MainClass.reset_disable(panel4);
                     ShowData();
                 }
@@ -90,15 +86,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    string query = "Update Users set user_Name = @uname , user_Password = @pswd where user_ID = @id";
-                    SqlCommand cmd = new SqlCommand(query,conn);
-                    cmd.Parameters.AddWithValue("@id", UserID_textBox.Text);
-                    cmd.Parameters.AddWithValue("@uname", username_textBox.Text);
-                    cmd.Parameters.AddWithValue("@pswd", userpswd_textBox.Text);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(username_textBox.Text+" Updated Successfully","Success","Success");
-                    conn.Close();
+                    UsersDB usersDB = new UsersDB();
+                    usersDB.Edit(UserID_textBox, username_textBox, userpswd_textBox);
                     MainClass.reset_disable(panel4);
                     ShowData();
 
@@ -126,12 +115,8 @@ namespace Eduvation_SMS
                 }
                 else
                 {
-                    conn.Open();
-                    string query = "Delete from Users where user_ID=" + UserID_textBox.Text + ";";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.ExecuteNonQuery();
-                    MainClass.MSGBox(username_textBox.Text + " Deleted Successfully", "Success", "Success");
-                    conn.Close();
+                    UsersDB usersDB = new UsersDB();
+                    usersDB.Delete(UserID_textBox, username_textBox, userpswd_textBox);
                     MainClass.Disable(panel4);
                     ShowData();
                 }
@@ -149,8 +134,7 @@ namespace Eduvation_SMS
             username_textBox.Text = UserDGV.SelectedRows[0].Cells[1].Value.ToString();
             userpswd_textBox.Text = UserDGV.SelectedRows[0].Cells[2].Value.ToString();
             upswdrtype_textBox.Text = UserDGV.SelectedRows[0].Cells[2].Value.ToString();
-
-            
+   
         }
         //Public Method to Disable Error Label declare in Interface
         public void Disable_errorlabel()
