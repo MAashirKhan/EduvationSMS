@@ -17,7 +17,9 @@ namespace Eduvation_SMS
 
         public abstract void add(TextBox textBox);
         public abstract void edit(TextBox name);
-        public abstract void delete(TextBox textbox);        
+        public abstract void delete(TextBox textbox);
+     
+        
     }
     public class ClassDB : ClassDBQueries
     {

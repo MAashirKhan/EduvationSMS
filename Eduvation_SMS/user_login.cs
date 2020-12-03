@@ -20,5 +20,9 @@ namespace Eduvation_SMS
             get { return password; }
             set { password = value; }
         }
+        public user_login()
+        {
+
+        }
     }
 }
